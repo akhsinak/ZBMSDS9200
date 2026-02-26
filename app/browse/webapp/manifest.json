@@ -23,7 +23,9 @@
         "Emails-manage": {
           "signature": {
             "parameters": {
-              "Emails.ID": { "renameTo": "ID" }
+              "Emails.ID": {
+                "renameTo": "ID"
+              }
             },
             "additionalParameters": "ignored"
           },
@@ -124,5 +126,9 @@
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "localemailapp2.service"
   }
 }

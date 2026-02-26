@@ -1,0 +1,11 @@
+---
+applications:
+  - name: localemailapp2-srv
+    memory: 256M
+    disk_quota: 512M
+    buildpacks:
+      - nodejs_buildpack
+    command: npm start
+    services:
+      - localemail-hdi
+      - localemail-xsuaa
