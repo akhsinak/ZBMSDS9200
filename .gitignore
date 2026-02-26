@@ -1,1 +1,11 @@
 node_modules
+ 
+default-env.json
+.env
+ 
+db.sqlite
+db.sqlite-wal
+db.sqlite-shm
+ 
+gen/
+.cds-gen/
