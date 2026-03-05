@@ -1,6 +1,6 @@
 _schema-version: 3.3.0
 ID: localemailapp2
-version: 1.0.0
+version: 1.0.2
 description: "A simple CAP project."
 parameters:
   enable-parallel-deployments: true
@@ -18,12 +18,14 @@ modules:
     parameters:
       instances: 1
       buildpack: nodejs_buildpack
+      routes:
+        - route: localemailapp2-srv.${default-domain}
     build-parameters:
       builder: npm-ci
     provides:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
-          srv-url: ${default-url}
+          srv-url: https://localemailapp2-srv.${default-domain}
     requires:
       - name: localemailapp2-db
       - name: localemailapp2-destination
@@ -39,21 +41,18 @@ modules:
 
   - name: localemailapp2-app-deployer
     type: com.sap.application.content
-    path: gen
+    path: .
     requires:
-      - name: srv-api
       - name: localemailapp2-html5-repo-host
         parameters:
           content-target: true
-          config:
-            HTML5Runtime_enabled: true
     build-parameters:
-      build-result: app/
+      build-result: resources
       requires:
         - name: localemailapp2browse
           artifacts:
-            - browse.zip
-          target-path: app/
+            - localemailapp2browse.zip
+          target-path: resources/
 
   - name: localemailapp2browse
     type: html5
@@ -62,7 +61,7 @@ modules:
       build-result: dist
       builder: custom
       commands:
-        - npm ci
+        - npm install
         - npm run build
       supported-platforms:
         []
@@ -74,7 +73,10 @@ modules:
         parameters:
           service-key:
             name: localemailapp2-html5-repo-host-key
-      - name: srv-api
+      - name: localemailapp2-xsuaa
+        parameters:
+          service-key:
+            name: localemailapp2-xsuaa-key
       - name: localemailapp2-destination
         parameters:
           content-target: true
@@ -89,6 +91,11 @@ modules:
               ServiceInstanceName: localemailapp2-html5-repo-host
               ServiceKeyName: localemailapp2-html5-repo-host-key
               sap.cloud.service: localemailapp2.service
+            - Name: localemailapp2-uaa
+              Authentication: OAuth2UserTokenExchange
+              ServiceInstanceName: localemailapp2-xsuaa
+              ServiceKeyName: localemailapp2-xsuaa-key
+              sap.cloud.service: localemailapp2.service
 
 resources:
   - name: localemailapp2-db
@@ -100,6 +107,7 @@ resources:
     type: org.cloudfoundry.managed-service
     parameters:
       service: destination
+      service-name: localemailapp2-destination
       service-plan: lite
       config:
         HTML5Runtime_enabled: true
@@ -107,15 +115,18 @@ resources:
           instance:
             existing_destinations_policy: update
             destinations:
+              - Name: ui5
+                URL: https://ui5.sap.com
+                Authentication: NoAuthentication
+                Type: HTTP
+                ProxyType: Internet
               - Name: srv-api
                 URL: ~{srv-api/srv-url}
-                Authentication: OAuth2UserTokenExchange
+                Authentication: NoAuthentication
                 Type: HTTP
                 ProxyType: Internet
                 HTML5.ForwardAuthToken: true
                 HTML5.DynamicDestination: true
-                tokenServiceInstanceName: localemailapp2-xsuaa
-                tokenServiceKeyName: localemailapp2-xsuaa-key
     requires:
       - name: srv-api
       - name: localemailapp2-xsuaa
@@ -124,25 +135,27 @@ resources:
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
+      service-name: localemailapp2-html5-repo-host
       service-plan: app-host
 
   - name: localemailapp2-html5-repo-rt
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
+      service-name: localemailapp2-html5-repo-rt
       service-plan: app-runtime
 
   - name: localemailapp2-xsuaa
     type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
+      service-name: localemailapp2-xsuaa
       service-plan: application
       path: ./xs-security.json
       config:
-        xsappname: localemailapp2-${org}-${space}
+        xsappname: localemailapp2-dev
         tenant-mode: dedicated
-    requires:
-      - name: localemailapp2-html5-repo-rt
-    parameters:
       service-keys:
         - name: localemailapp2-xsuaa-key
+    requires:
+      - name: localemailapp2-html5-repo-rt

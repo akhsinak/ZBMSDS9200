@@ -9,3 +9,10 @@ db.sqlite-shm
  
 gen/
 .cds-gen/
+
+.vscode/
+
+app/browse/dist
+
+resources/
+mta_archives/

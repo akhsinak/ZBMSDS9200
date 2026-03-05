@@ -1,6 +1,6 @@
 {
   "name": "browse",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "webapp/index.html",
   "scripts": {
     "build": "ui5 build preload --clean-dest",
