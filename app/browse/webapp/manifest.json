@@ -52,6 +52,18 @@
         "sap.fe.templates": {}
       }
     },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController": {
+            "controllerName": "localemailapp2.browse.ext.EmailsListReportExt"
+          },
+          "sap.fe.templates.ObjectPage.ObjectPageController": {
+            "controllerName": "localemailapp2.browse.ext.EmailsObjectPageExt"
+          }
+        }
+      }
+    },
     "models": {
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
