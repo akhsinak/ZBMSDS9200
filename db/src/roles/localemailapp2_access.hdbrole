@@ -1,0 +1,15 @@
+{
+  "role": {
+    "name": "localemailapp2_access",
+    "object_privileges": [
+      {
+        "name": "LOCAL_EMAIL_EMAILS",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      }
+    ]
+  }
+}
+
