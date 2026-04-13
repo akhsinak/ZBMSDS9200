@@ -1,6 +1,6 @@
 # Deployment
 
-This document explains how the Local Email Application is built and deployed to SAP BTP (Cloud Foundry) using an MTA (Multi-Target Application).
+This document explains how the Email Application is built and deployed to SAP BTP (Cloud Foundry) using an MTA (Multi-Target Application).
 
 ## Deployment Options
 

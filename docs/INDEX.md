@@ -1,6 +1,6 @@
 # Summary
 
-This documentation provides a comprehensive guide to the Local Email Application built with SAP CAP and Fiori Elements.
+This documentation provides a comprehensive guide to the Email Application built with SAP CAP and Fiori Elements.
 
 ## Table of Contents
 * [Introduction](README.md)

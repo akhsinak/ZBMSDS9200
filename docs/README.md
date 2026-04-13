@@ -1,6 +1,6 @@
-# Local Email Application Documentation
+# Email Application Documentation
 
-Welcome to the documentation for the **Local Email Application** - a SAP Cloud Application Programming Model (CAP) based application with a Fiori elements frontend.
+Welcome to the documentation for the **Email Application** - a SAP Cloud Application Programming Model (CAP) based application with a Fiori elements frontend.
 
 ## Overview
 

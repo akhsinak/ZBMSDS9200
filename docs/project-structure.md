@@ -1,6 +1,6 @@
 # Project Structure
 
-This document describes the complete file structure of the Local Email Application and the purpose of each file.
+This document describes the complete file structure of the Email Application and the purpose of each file.
 
 ## Root Directory
 

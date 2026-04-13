@@ -271,8 +271,8 @@ annotate EmailService.Emails with @(
 
 ```properties
 appTitle = Emails
-appSubTitle = Local Email Application
-appDescription = Local Email Application
+appSubTitle = Email Application
+appDescription = Email Application
 ```
 
 These strings are referenced in the manifest as `{{appTitle}}`, `{{appSubTitle}}`, and `{{appDescription}}`.
