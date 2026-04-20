@@ -66,13 +66,14 @@ nav:
     - Commands: Commands.md
     - File Reference: file-reference.md
     - Glossary: glossary.md
-  # - S/4HANA Changes:
-  #   - Sales Order DPC Ext Changes: 'changes in s4hana/sales_order_dpc_ext_changes.html'
-  # - 9020 Changes:
-  #   - Glossary: glossary.md
-  #   - Connect to Email App Hana cloud: 'changes in 9020 app to suuport mutiple emails\connect to email hana cloud.html'
-  #   - Send Emails to S/4HANA local dev: 'changes in 9020 app to suuport mutiple emailsSend emails to s4hana_in local dev mode.html'
-  #   - Send Emails to S/4HANA (deployed version): 'changes in 9020 app to suuport mutiple emails\send emails to s4hana_ after deploy.html'
+    - Add-tile-Build-Work-Zone: how-to-add-tile-build-work-zone.md
+  - S/4HANA Changes:
+    - Sales Order DPC Ext Changes: 'changes in s4hana/sales_order_dpc_ext_changes.html'
+  - 9020 Changes:
+    - Glossary: glossary.md
+    - Connect to Email App Hana cloud: 'changes in 9020 app to suuport mutiple emails\connect to email hana cloud.html'
+    - Send Emails to S/4HANA local dev: 'changes in 9020 app to suuport mutiple emails\Send emails to s4hana_in local dev mode.html'
+    - Send Emails to S/4HANA (deployed version): 'changes in 9020 app to suuport mutiple emails\send emails to s4hana_ after deploy.html'
 
 markdown_extensions:
   - pymdownx.highlight:
