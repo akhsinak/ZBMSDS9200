@@ -1,7 +1,7 @@
 sap.ui.define(["sap/ui/core/mvc/ControllerExtension", "sap/base/Log"], function (ControllerExtension, Log) {
   "use strict";
 
-  return ControllerExtension.extend("localemailapp2.browse.ext.EmailsObjectPageExt", {
+  return ControllerExtension.extend("zbmsds9200.browse.ext.EmailsObjectPageExt", {
     override: {
       editFlow: {
         onAfterSave: function () {

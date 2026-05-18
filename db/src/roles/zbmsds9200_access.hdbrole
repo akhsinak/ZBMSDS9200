@@ -1,11 +1,11 @@
 {
   "role": {
-    "name": "localemailapp2_access_g#",
+    "name": "zbmsds9200_access",
     "object_privileges": [
       {
         "name": "LOCAL_EMAIL_EMAILS",
         "type": "TABLE",
-        "privileges_with_grant_option": [
+        "privileges": [
           "SELECT"
         ]
       }

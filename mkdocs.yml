@@ -35,7 +35,7 @@ extra:
       lang: ja
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/akhsinak/localemailApp2
+      link: https://github.com/akhsinak/ZBMSDS9200
 
 plugins:
   - search
@@ -55,25 +55,25 @@ plugins:
 nav:
   - Home: INDEX.md
   - Documentation:
-    - Introduction: README.md
-    - Project Structure: project-structure.md
-    - Database Layer: database-layer.md
-    - Service Layer: service-layer.md
-    - UI Layer: ui-layer.md
-    - Configuration Files: configuration-files.md
-    - Security: security.md
-    - Deployment: deployment.md
-    - Commands: Commands.md
-    - File Reference: file-reference.md
-    - Glossary: glossary.md
-    - Add-tile-Build-Work-Zone: how-to-add-tile-build-work-zone.md
+      - Introduction: README.md
+      - Project Structure: project-structure.md
+      - Database Layer: database-layer.md
+      - Service Layer: service-layer.md
+      - UI Layer: ui-layer.md
+      - Configuration Files: configuration-files.md
+      - Security: security.md
+      - Deployment: deployment.md
+      - Commands: Commands.md
+      - File Reference: file-reference.md
+      - Glossary: glossary.md
+      - Add-tile-Build-Work-Zone: how-to-add-tile-build-work-zone.md
   - S/4HANA Changes:
-    - Sales Order DPC Ext Changes: 'changes in s4hana/sales_order_dpc_ext_changes.html'
+      - Sales Order DPC Ext Changes: "changes in s4hana/sales_order_dpc_ext_changes.html"
   - 9020 Changes:
-    - Glossary: glossary.md
-    - Connect to Email App Hana cloud: 'changes in 9020 app to suuport mutiple emails\connect to email hana cloud.html'
-    - Send Emails to S/4HANA local dev: 'changes in 9020 app to suuport mutiple emails\Send emails to s4hana_in local dev mode.html'
-    - Send Emails to S/4HANA (deployed version): 'changes in 9020 app to suuport mutiple emails\send emails to s4hana_ after deploy.html'
+      - Glossary: glossary.md
+      - Connect to Email App Hana cloud: 'changes in 9020 app to suuport mutiple emails\connect to email hana cloud.html'
+      - Send Emails to S/4HANA local dev: 'changes in 9020 app to suuport mutiple emails\Send emails to s4hana_in local dev mode.html'
+      - Send Emails to S/4HANA (deployed version): 'changes in 9020 app to suuport mutiple emails\send emails to s4hana_ after deploy.html'
 
 markdown_extensions:
   - pymdownx.highlight:

@@ -10,7 +10,6 @@ primary deployment approaches in this project:
    - Uses `{{mta.yaml}}`
    - Builds and deploys DB + CAP service + UI content
 
-
 ---
 
 ## Local Build & Run
@@ -28,7 +27,7 @@ The CAP server runs at:
 
 - `http://localhost:4004`
 
-```
+````
 
 ---
 
@@ -52,7 +51,7 @@ build-parameters:
       commands:
         - npm ci
         - npx cds build --production
-```
+````
 
 #### What this does
 
@@ -71,18 +70,18 @@ build-parameters:
 
 ### 1) CAP Service Module
 
-**Module name:** `localemailapp2-srv`  
+**Module name:** `zbmsds9200-srv`  
 **Type:** `nodejs`  
 **Path:** `gen/srv`
 
 ```yaml
-- name: localemailapp2-srv
+- name: zbmsds9200-srv
   type: nodejs
   path: gen/srv
   requires:
-    - name: localemailapp2-db
-    - name: localemailapp2-destination
-    - name: localemailapp2-xsuaa
+    - name: zbmsds9200-db
+    - name: zbmsds9200-destination
+    - name: zbmsds9200-xsuaa
 ```
 
 #### Responsibilities
@@ -94,16 +93,16 @@ build-parameters:
 
 ### 2) DB Deployer Module
 
-**Module name:** `localemailapp2-db-deployer`  
+**Module name:** `zbmsds9200-db-deployer`  
 **Type:** `hdb`  
 **Path:** `gen/db`
 
 ```yaml
-- name: localemailapp2-db-deployer
+- name: zbmsds9200-db-deployer
   type: hdb
   path: gen/db
   requires:
-    - name: localemailapp2-db
+    - name: zbmsds9200-db
 ```
 
 #### Responsibilities
@@ -114,12 +113,12 @@ build-parameters:
 
 ### 3) UI5 Build Module
 
-**Module name:** `localemailapp2browse`  
+**Module name:** `zbmsds9200browse`  
 **Type:** `html5`  
 **Path:** `app/browse`
 
 ```yaml
-- name: localemailapp2browse
+- name: zbmsds9200browse
   type: html5
   path: app/browse
   build-parameters:
@@ -139,22 +138,22 @@ build-parameters:
 
 ### 4) HTML5 App Deployer (Content)
 
-**Module name:** `localemailapp2-app-deployer`  
+**Module name:** `zbmsds9200-app-deployer`  
 **Type:** `com.sap.application.content`
 
 ```yaml
-- name: localemailapp2-app-deployer
+- name: zbmsds9200-app-deployer
   type: com.sap.application.content
   requires:
-    - name: localemailapp2-html5-repo-host
+    - name: zbmsds9200-html5-repo-host
       parameters:
         content-target: true
   build-parameters:
     build-result: resources
     requires:
-      - name: localemailapp2browse
+      - name: zbmsds9200browse
         artifacts:
-          - localemailapp2browse.zip
+          - zbmsds9200browse.zip
         target-path: resources/
 ```
 
@@ -166,7 +165,7 @@ build-parameters:
 
 ### 5) Destinations Content Module
 
-**Module name:** `localemailapp2-destinations`
+**Module name:** `zbmsds9200-destinations`
 
 This module configures destinations in the Destination service.
 
@@ -182,14 +181,14 @@ Key destinations:
 ### HANA HDI Container
 
 ```yaml
-- name: localemailapp2-db
+- name: zbmsds9200-db
   type: com.sap.xs.hdi-container
 ```
 
 ### Destination Service
 
 ```yaml
-- name: localemailapp2-destination
+- name: zbmsds9200-destination
   type: org.cloudfoundry.managed-service
   parameters:
     service: destination
@@ -204,7 +203,7 @@ Key destinations:
 ### XSUAA
 
 ```yaml
-- name: localemailapp2-xsuaa
+- name: zbmsds9200-xsuaa
   type: org.cloudfoundry.managed-service
   parameters:
     service: xsuaa
@@ -212,13 +211,12 @@ Key destinations:
     path: ./xs-security.json
 ```
 
-
-
 ---
 
 ## App Router
 
 The UI app includes `{{app/browse/xs-app.json}}` which defines:
+
 - Protected routes (xsuaa)
 - OData proxying to `srv-api`
 - UI5 resources from `ui5` destination
@@ -230,6 +228,7 @@ The UI app includes `{{app/browse/xs-app.json}}` which defines:
 ### Versioning
 
 The project version `1.0.2` appears consistently in:
+
 - `{{package.json}}`
 - `{{app/browse/package.json}}`
 - `{{app/browse/webapp/manifest.json}}`

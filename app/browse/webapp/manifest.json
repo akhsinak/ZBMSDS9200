@@ -1,7 +1,7 @@
 {
   "_version": "1.28.0",
   "sap.app": {
-    "id": "localemailapp2.browse",
+    "id": "zbmsds9200.browse",
     "type": "application",
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
@@ -56,10 +56,10 @@
       "extensions": {
         "sap.ui.controllerExtensions": {
           "sap.fe.templates.ListReport.ListReportController": {
-            "controllerName": "localemailapp2.browse.ext.EmailsListReportExt"
+            "controllerName": "zbmsds9200.browse.ext.EmailsListReportExt"
           },
           "sap.fe.templates.ObjectPage.ObjectPageController": {
-            "controllerName": "localemailapp2.browse.ext.EmailsObjectPageExt"
+            "controllerName": "zbmsds9200.browse.ext.EmailsObjectPageExt"
           }
         }
       }
@@ -142,6 +142,6 @@
   },
   "sap.cloud": {
     "public": true,
-    "service": "localemailapp2.service"
+    "service": "zbmsds9200.service"
   }
 }

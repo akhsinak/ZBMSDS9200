@@ -1,5 +1,5 @@
 _schema-version: 3.3.0
-ID: localemailapp2
+ID: zbmsds9200
 version: 1.0.2
 description: "A simple CAP project."
 parameters:
@@ -12,49 +12,49 @@ build-parameters:
         - npm ci
         - npx cds build --production
 modules:
-  - name: localemailapp2-srv
+  - name: zbmsds9200-srv
     type: nodejs
     path: gen/srv
     parameters:
       instances: 1
       buildpack: nodejs_buildpack
       routes:
-        - route: localemailapp2-srv.${default-domain}
+        - route: zbmsds9200-srv.${default-domain}
     build-parameters:
       builder: npm-ci
     provides:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
-          srv-url: https://localemailapp2-srv.${default-domain}
+          srv-url: https://zbmsds9200-srv.${default-domain}
     requires:
-      - name: localemailapp2-db
-      - name: localemailapp2-destination
-      - name: localemailapp2-xsuaa
+      - name: zbmsds9200-db
+      - name: zbmsds9200-destination
+      - name: zbmsds9200-xsuaa
 
-  - name: localemailapp2-db-deployer
+  - name: zbmsds9200-db-deployer
     type: hdb
     path: gen/db
     parameters:
       buildpack: nodejs_buildpack
     requires:
-      - name: localemailapp2-db
+      - name: zbmsds9200-db
 
-  - name: localemailapp2-app-deployer
+  - name: zbmsds9200-app-deployer
     type: com.sap.application.content
     path: .
     requires:
-      - name: localemailapp2-html5-repo-host
+      - name: zbmsds9200-html5-repo-host
         parameters:
           content-target: true
     build-parameters:
       build-result: resources
       requires:
-        - name: localemailapp2browse
+        - name: zbmsds9200browse
           artifacts:
-            - localemailapp2browse.zip
+            - zbmsds9200browse.zip
           target-path: resources/
 
-  - name: localemailapp2browse
+  - name: zbmsds9200browse
     type: html5
     path: app/browse
     build-parameters:
@@ -63,21 +63,20 @@ modules:
       commands:
         - npm install
         - npm run build
-      supported-platforms:
-        []
+      supported-platforms: []
 
-  - name: localemailapp2-destinations
+  - name: zbmsds9200-destinations
     type: com.sap.application.content
     requires:
-      - name: localemailapp2-html5-repo-host
+      - name: zbmsds9200-html5-repo-host
         parameters:
           service-key:
-            name: localemailapp2-html5-repo-host-key
-      - name: localemailapp2-xsuaa
+            name: zbmsds9200-html5-repo-host-key
+      - name: zbmsds9200-xsuaa
         parameters:
           service-key:
-            name: localemailapp2-xsuaa-key
-      - name: localemailapp2-destination
+            name: zbmsds9200-xsuaa-key
+      - name: zbmsds9200-destination
         parameters:
           content-target: true
     build-parameters:
@@ -87,27 +86,27 @@ modules:
         instance:
           existing_destinations_policy: update
           destinations:
-            - Name: localemailapp2-html5-repository
-              ServiceInstanceName: localemailapp2-html5-repo-host
-              ServiceKeyName: localemailapp2-html5-repo-host-key
-              sap.cloud.service: localemailapp2.service
-            - Name: localemailapp2-uaa
+            - Name: zbmsds9200-html5-repository
+              ServiceInstanceName: zbmsds9200-html5-repo-host
+              ServiceKeyName: zbmsds9200-html5-repo-host-key
+              sap.cloud.service: zbmsds9200.service
+            - Name: zbmsds9200-uaa
               Authentication: OAuth2UserTokenExchange
-              ServiceInstanceName: localemailapp2-xsuaa
-              ServiceKeyName: localemailapp2-xsuaa-key
-              sap.cloud.service: localemailapp2.service
+              ServiceInstanceName: zbmsds9200-xsuaa
+              ServiceKeyName: zbmsds9200-xsuaa-key
+              sap.cloud.service: zbmsds9200.service
 
 resources:
-  - name: localemailapp2-db
+  - name: zbmsds9200-db
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
       service-plan: hdi-shared
-  - name: localemailapp2-destination
+  - name: zbmsds9200-destination
     type: org.cloudfoundry.managed-service
     parameters:
       service: destination
-      service-name: localemailapp2-destination
+      service-name: zbmsds9200-destination
       service-plan: lite
       config:
         HTML5Runtime_enabled: true
@@ -129,33 +128,33 @@ resources:
                 HTML5.DynamicDestination: true
     requires:
       - name: srv-api
-      - name: localemailapp2-xsuaa
+      - name: zbmsds9200-xsuaa
 
-  - name: localemailapp2-html5-repo-host
+  - name: zbmsds9200-html5-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
-      service-name: localemailapp2-html5-repo-host
+      service-name: zbmsds9200-html5-repo-host
       service-plan: app-host
 
-  - name: localemailapp2-html5-repo-rt
+  - name: zbmsds9200-html5-repo-rt
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
-      service-name: localemailapp2-html5-repo-rt
+      service-name: zbmsds9200-html5-repo-rt
       service-plan: app-runtime
 
-  - name: localemailapp2-xsuaa
+  - name: zbmsds9200-xsuaa
     type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
-      service-name: localemailapp2-xsuaa
+      service-name: zbmsds9200-xsuaa
       service-plan: application
       path: ./xs-security.json
       config:
-        xsappname: localemailapp2-dev
+        xsappname: zbmsds9200-dev
         tenant-mode: dedicated
       service-keys:
-        - name: localemailapp2-xsuaa-key
+        - name: zbmsds9200-xsuaa-key
     requires:
-      - name: localemailapp2-html5-repo-rt
+      - name: zbmsds9200-html5-repo-rt

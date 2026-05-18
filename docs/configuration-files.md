@@ -10,7 +10,7 @@ Located at the project root, this file defines the backend service configuration
 
 ```json
 {
-  "name": "localemailapp2",
+  "name": "zbmsds9200",
   "version": "1.0.2",
   "dependencies": {
     "@cap-js/hana": "^2",
@@ -45,19 +45,19 @@ Located at the project root, this file defines the backend service configuration
 
 #### Dependencies
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `@cap-js/hana` | ^2 | SAP HANA database adapter for CAP |
-| `@sap/cds` | ^9 | Core CAP framework |
-| `@sap/xsenv` | ^5 | BTP environment access |
-| `@sap/xssec` | ^4 | XSUAA security integration |
+| Package        | Version | Purpose                           |
+| -------------- | ------- | --------------------------------- |
+| `@cap-js/hana` | ^2      | SAP HANA database adapter for CAP |
+| `@sap/cds`     | ^9      | Core CAP framework                |
+| `@sap/xsenv`   | ^5      | BTP environment access            |
+| `@sap/xssec`   | ^4      | XSUAA security integration        |
 
 #### Dev Dependencies
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `@cap-js/sqlite` | ^2 | SQLite for local development |
-| `@sap/cds-dk` | ^9.7.2 | CAP development kit (CLI tools) |
+| Package          | Version | Purpose                         |
+| ---------------- | ------- | ------------------------------- |
+| `@cap-js/sqlite` | ^2      | SQLite for local development    |
+| `@sap/cds-dk`    | ^9.7.2  | CAP development kit (CLI tools) |
 
 #### CDS Configuration
 
@@ -74,12 +74,12 @@ Located at the project root, this file defines the backend service configuration
 }
 ```
 
-| Setting | Value | Description |
-|---------|-------|-------------|
-| `db.kind` | `hana` | Uses SAP HANA Cloud for production |
-| `destinations` | `true` | Enables BTP destinations service |
-| `html5-repo` | `true` | Enables HTML5 Applications Repository |
-| `workzone` | `true` | Enables SAP Build Work Zone integration |
+| Setting        | Value  | Description                             |
+| -------------- | ------ | --------------------------------------- |
+| `db.kind`      | `hana` | Uses SAP HANA Cloud for production      |
+| `destinations` | `true` | Enables BTP destinations service        |
+| `html5-repo`   | `true` | Enables HTML5 Applications Repository   |
+| `workzone`     | `true` | Enables SAP Build Work Zone integration |
 
 ---
 
@@ -107,16 +107,16 @@ The UI5 application's package configuration.
 
 ### Scripts
 
-| Script | Command | Purpose |
-|--------|---------|---------|
-| `build` | `ui5 build preload --clean-dest` | Builds the UI5 app with preloading |
-| `start` | `ui5 serve` | Starts local UI5 development server |
+| Script  | Command                          | Purpose                             |
+| ------- | -------------------------------- | ----------------------------------- |
+| `build` | `ui5 build preload --clean-dest` | Builds the UI5 app with preloading  |
+| `start` | `ui5 serve`                      | Starts local UI5 development server |
 
 ### Dev Dependencies
 
-| Package | Purpose |
-|---------|---------|
-| `@ui5/cli` | UI5 command line tools |
+| Package           | Purpose                               |
+| ----------------- | ------------------------------------- |
+| `@ui5/cli`        | UI5 command line tools                |
 | `ui5-task-zipper` | Creates deployable ZIP for HTML5 repo |
 
 ---
@@ -129,9 +129,9 @@ UI5 tooling configuration for building the Fiori app.
 
 ```yaml
 # yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
-specVersion: '4.0'
+specVersion: "4.0"
 metadata:
-  name: localemailapp2.browse
+  name: zbmsds9200.browse
 type: application
 resources:
   configuration:
@@ -145,7 +145,7 @@ builder:
     - name: ui5-task-zipper
       afterTask: generateVersionInfo
       configuration:
-        archiveName: localemailapp2browse
+        archiveName: zbmsds9200browse
         relativePaths: true
         additionalFiles:
           - xs-app.json
@@ -153,13 +153,13 @@ builder:
 
 ### Key Settings
 
-| Setting | Value | Description |
-|---------|-------|-------------|
-| `specVersion` | `4.0` | UI5 tooling specification version |
-| `metadata.name` | `localemailapp2.browse` | Application identifier |
-| `type` | `application` | Project type |
-| `customTasks` | `ui5-task-zipper` | Creates ZIP for deployment |
-| `archiveName` | `localemailapp2browse` | Output ZIP filename |
+| Setting         | Value               | Description                       |
+| --------------- | ------------------- | --------------------------------- |
+| `specVersion`   | `4.0`               | UI5 tooling specification version |
+| `metadata.name` | `zbmsds9200.browse` | Application identifier            |
+| `type`          | `application`       | Project type                      |
+| `customTasks`   | `ui5-task-zipper`   | Creates ZIP for deployment        |
+| `archiveName`   | `zbmsds9200browse`  | Output ZIP filename               |
 
 ---
 
@@ -171,40 +171,38 @@ Multi-Target Application descriptor for Cloud Foundry deployment.
 
 #### Application Modules
 
-| Module | Type | Purpose |
-|--------|------|---------|
-| `localemailapp2-srv` | nodejs | CAP service runtime |
-| `localemailapp2-db-deployer` | hdb | Database deployment |
-| `localemailapp2-app-deployer` | com.sap.application.content | UI app deployment |
-| `localemailapp2browse` | html5 | UI5 build module |
-| `localemailapp2-destinations` | com.sap.application.content | Destination configuration |
+| Module                    | Type                        | Purpose                   |
+| ------------------------- | --------------------------- | ------------------------- |
+| `zbmsds9200-srv`          | nodejs                      | CAP service runtime       |
+| `zbmsds9200-db-deployer`  | hdb                         | Database deployment       |
+| `zbmsds9200-app-deployer` | com.sap.application.content | UI app deployment         |
+| `zbmsds9200browse`        | html5                       | UI5 build module          |
+| `zbmsds9200-destinations` | com.sap.application.content | Destination configuration |
 
 #### Service Resources
 
-| Resource | Type | Purpose |
-|----------|------|---------|
-| `localemailapp2-db` | hana | HANA Cloud database |
-| `localemailapp2-destination` | destination | BTP Destinations service |
-| `localemailapp2-html5-repo-host` | html5-apps-repo | HTML5 repo for UI apps |
-| `localemailapp2-html5-repo-rt` | html5-apps-repo | HTML5 repo runtime |
-| `localemailapp2-xsuaa` | xsuaa | Authentication service |
+| Resource                     | Type            | Purpose                  |
+| ---------------------------- | --------------- | ------------------------ |
+| `zbmsds9200-db`              | hana            | HANA Cloud database      |
+| `zbmsds9200-destination`     | destination     | BTP Destinations service |
+| `zbmsds9200-html5-repo-host` | html5-apps-repo | HTML5 repo for UI apps   |
+| `zbmsds9200-html5-repo-rt`   | html5-apps-repo | HTML5 repo runtime       |
+| `zbmsds9200-xsuaa`           | xsuaa           | Authentication service   |
 
 #### Key Configuration
 
 ```yaml
 modules:
-  - name: localemailapp2-srv
+  - name: zbmsds9200-srv
     type: nodejs
     path: gen/srv
     requires:
-      - name: localemailapp2-db
-      - name: localemailapp2-destination
-      - name: localemailapp2-xsuaa
+      - name: zbmsds9200-db
+      - name: zbmsds9200-destination
+      - name: zbmsds9200-xsuaa
 ```
 
 ---
-
-
 
 ## Security Configuration
 
@@ -214,7 +212,7 @@ XSUAA security configuration for authentication and authorization.
 
 ```json
 {
-  "xsappname": "localemailapp2",
+  "xsappname": "zbmsds9200",
   "tenant-mode": "dedicated",
   "scopes": [
     {
@@ -226,9 +224,7 @@ XSUAA security configuration for authentication and authorization.
     {
       "name": "User",
       "description": "Default user role",
-      "scope-references": [
-        "$XSAPPNAME.User"
-      ]
+      "scope-references": ["$XSAPPNAME.User"]
     }
   ]
 }
@@ -236,12 +232,12 @@ XSUAA security configuration for authentication and authorization.
 
 ### Settings
 
-| Setting | Value | Description |
-|---------|-------|-------------|
-| `xsappname` | `localemailapp2` | Application name in XSUAA |
-| `tenant-mode` | `dedicated` | Single-tenant mode |
-| `scopes` | `$XSAPPNAME.User` | Defined permission scope |
-| `role-templates` | `User` | Role containing the scope |
+| Setting          | Value             | Description               |
+| ---------------- | ----------------- | ------------------------- |
+| `xsappname`      | `zbmsds9200`      | Application name in XSUAA |
+| `tenant-mode`    | `dedicated`       | Single-tenant mode        |
+| `scopes`         | `$XSAPPNAME.User` | Defined permission scope  |
+| `role-templates` | `User`            | Role containing the scope |
 
 ---
 
@@ -285,11 +281,11 @@ App router route configuration for the UI application.
 
 ### Route Configuration
 
-| Route | Source | Destination | Auth |
-|-------|--------|-------------|------|
-| UI5 Resources | `/resources/*` | ui5 | none |
-| OData Service | `/odata/*` | srv-api | xsuaa |
-| App Content | `/*` | html5-apps-repo-rt | xsuaa |
+| Route         | Source         | Destination        | Auth  |
+| ------------- | -------------- | ------------------ | ----- |
+| UI5 Resources | `/resources/*` | ui5                | none  |
+| OData Service | `/odata/*`     | srv-api            | xsuaa |
+| App Content   | `/*`           | html5-apps-repo-rt | xsuaa |
 
 ---
 
@@ -298,6 +294,7 @@ App router route configuration for the UI application.
 ### `{{default-env.json}}` & `{{default-env.json.template}}`
 
 Local development environment variables. Contains:
+
 - Database connection settings
 - Service credentials
 - Feature toggles
@@ -308,13 +305,13 @@ The `.template` file is a sanitized version without actual credentials.
 
 ## Summary
 
-| File | Location | Purpose |
-|------|----------|---------|
-| `package.json` | Root | Backend dependencies & scripts |
-| `mta.yaml` | Root | Cloud Foundry deployment |
-| `manifest.yml` | Root | CF app manifest |
-| `xs-security.json` | Root | XSUAA configuration |
-| `default-env.json` | Root | Local env variables |
-| `app/browse/package.json` | `app/browse/` | UI dependencies |
-| `app/browse/ui5.yaml` | `app/browse/` | UI5 build config |
-| `app/browse/xs-app.json` | `app/browse/` | App router routes |
+| File                      | Location      | Purpose                        |
+| ------------------------- | ------------- | ------------------------------ |
+| `package.json`            | Root          | Backend dependencies & scripts |
+| `mta.yaml`                | Root          | Cloud Foundry deployment       |
+| `manifest.yml`            | Root          | CF app manifest                |
+| `xs-security.json`        | Root          | XSUAA configuration            |
+| `default-env.json`        | Root          | Local env variables            |
+| `app/browse/package.json` | `app/browse/` | UI dependencies                |
+| `app/browse/ui5.yaml`     | `app/browse/` | UI5 build config               |
+| `app/browse/xs-app.json`  | `app/browse/` | App router routes              |

@@ -5,8 +5,8 @@
         "config": {
           "groups": [
             {
-              "id": "LocalEmail",
-              "title": "Local Email",
+              "id": "ZBMSDS9200",
+              "title": "ZBMSDS9200",
               "isPreset": true,
               "isVisible": true,
               "isGroupLocked": false,
@@ -40,13 +40,15 @@
               "title": "Emails",
               "signature": {
                 "parameters": {
-                  "Emails.ID": { "renameTo": "ID" }
+                  "Emails.ID": {
+                    "renameTo": "ID"
+                  }
                 },
                 "additionalParameters": "ignored"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
-                "additionalInformation": "SAPUI5.Component=localemailapp2.browse",
+                "additionalInformation": "SAPUI5.Component=zbmsds9200.browse",
                 "url": "/browse/webapp"
               }
             }

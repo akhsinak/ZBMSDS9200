@@ -5,6 +5,7 @@ The UI layer provides the Fiori elements interface for managing emails. It uses 
 ## Fiori Application Structure
 
 ### Location
+
 ```
 app/browse/
 ├── webapp/               # UI5 application
@@ -28,15 +29,17 @@ This is the central configuration file for the Fiori application.
 ### Key Sections
 
 #### Application ID
+
 ```json
 "sap.app": {
-  "id": "localemailapp2.browse",
+  "id": "zbmsds9200.browse",
   "type": "application",
   "version": "1.0.2"
 }
 ```
 
 #### Data Source (OData Service)
+
 ```json
 "dataSources": {
   "EmailService": {
@@ -52,15 +55,16 @@ This is the central configuration file for the Fiori application.
 Connects to the `{{srv/cat-service.cds}}` endpoint.
 
 #### Controller Extensions
+
 ```json
 "extends": {
   "extensions": {
     "sap.ui.controllerExtensions": {
       "sap.fe.templates.ListReport.ListReportController": {
-        "controllerName": "localemailapp2.browse.ext.EmailsListReportExt"
+        "controllerName": "zbmsds9200.browse.ext.EmailsListReportExt"
       },
       "sap.fe.templates.ObjectPage.ObjectPageController": {
-        "controllerName": "localemailapp2.browse.ext.EmailsObjectPageExt"
+        "controllerName": "zbmsds9200.browse.ext.EmailsObjectPageExt"
       }
     }
   }
@@ -68,6 +72,7 @@ Connects to the `{{srv/cat-service.cds}}` endpoint.
 ```
 
 Registers custom controller extensions for:
+
 - **ListReport**: `{{app/browse/webapp/ext/EmailsListReportExt.controller.js}}`
 - **ObjectPage**: `{{app/browse/webapp/ext/EmailsObjectPageExt.controller.js}}`
 
@@ -75,14 +80,15 @@ Registers custom controller extensions for:
 
 The app has two routes:
 
-| Route | Pattern | Target | Purpose |
-|-------|---------|--------|---------|
-| `EmailsList` | `:?query:` | `EmailsList` | Main list view |
+| Route           | Pattern                 | Target          | Purpose          |
+| --------------- | ----------------------- | --------------- | ---------------- |
+| `EmailsList`    | `:?query:`              | `EmailsList`    | Main list view   |
 | `EmailsDetails` | `Emails({key}):?query:` | `EmailsDetails` | Detail/edit view |
 
 #### Targets
 
 **List Report Target**:
+
 ```json
 "EmailsList": {
   "type": "Component",
@@ -104,6 +110,7 @@ The app has two routes:
 ```
 
 **Object Page Target**:
+
 ```json
 "EmailsDetails": {
   "type": "Component",
@@ -123,41 +130,55 @@ The app has two routes:
 This extension modifies the default navigation behavior.
 
 ```javascript
-sap.ui.define(["sap/ui/core/mvc/ControllerExtension", "sap/base/Log"], 
+sap.ui.define(
+  ["sap/ui/core/mvc/ControllerExtension", "sap/base/Log"],
   function (ControllerExtension, Log) {
     "use strict";
 
-    return ControllerExtension.extend("localemailapp2.browse.ext.EmailsObjectPageExt", {
-      override: {
-        editFlow: {
-          onAfterSave: function () {
-            try {
-              var oExtensionAPI = this.base && this.base.getExtensionAPI && this.base.getExtensionAPI();
-              if (oExtensionAPI && oExtensionAPI.routing && oExtensionAPI.routing.navigateToRoute) {
-                oExtensionAPI.routing.navigateToRoute("EmailsList");
+    return ControllerExtension.extend(
+      "zbmsds9200.browse.ext.EmailsObjectPageExt",
+      {
+        override: {
+          editFlow: {
+            onAfterSave: function () {
+              try {
+                var oExtensionAPI =
+                  this.base &&
+                  this.base.getExtensionAPI &&
+                  this.base.getExtensionAPI();
+                if (
+                  oExtensionAPI &&
+                  oExtensionAPI.routing &&
+                  oExtensionAPI.routing.navigateToRoute
+                ) {
+                  oExtensionAPI.routing.navigateToRoute("EmailsList");
+                }
+              } catch (e) {
+                Log.error(
+                  "Failed to navigate back to Emails list after save",
+                  e,
+                );
               }
-            } catch (e) {
-              Log.error("Failed to navigate back to Emails list after save", e);
-            }
-          }
-        }
-      }
-    });
-  }
+            },
+          },
+        },
+      },
+    );
+  },
 );
 ```
 
 ### What It Does
 
-| Standard Behavior | Custom Behavior |
-|-------------------|-----------------|
+| Standard Behavior                                 | Custom Behavior                            |
+| ------------------------------------------------- | ------------------------------------------ |
 | After Create: Navigate to Object Page (view mode) | After Create: Navigate back to List Report |
-| User sees newly created record in detail view | User sees updated list with new record |
+| User sees newly created record in detail view     | User sees updated list with new record     |
 
 ### Navigation Flow
 
 ```
-List Report (Screen 1) 
+List Report (Screen 1)
     ↓ [Click Create]
 Object Page in Create Mode (Screen 2)
     ↓ [Click Create/Save]
@@ -171,16 +192,20 @@ List Report with new record (Back to Screen 1) ← Custom behavior
 Placeholder extension for the List Report:
 
 ```javascript
-sap.ui.define(["sap/ui/core/mvc/ControllerExtension"], 
+sap.ui.define(
+  ["sap/ui/core/mvc/ControllerExtension"],
   function (ControllerExtension) {
     "use strict";
 
-    return ControllerExtension.extend("localemailapp2.browse.ext.EmailsListReportExt", {
-      onInit: function () {
-        // no-op - reserved for future extensions
-      }
-    });
-  }
+    return ControllerExtension.extend(
+      "zbmsds9200.browse.ext.EmailsListReportExt",
+      {
+        onInit: function () {
+          // no-op - reserved for future extensions
+        },
+      },
+    );
+  },
 );
 ```
 
@@ -191,6 +216,7 @@ sap.ui.define(["sap/ui/core/mvc/ControllerExtension"],
 CDS annotations that configure the Fiori UI appearance and behavior.
 
 #### Header Information
+
 ```cds
 annotate EmailService.Emails with @(
   UI.HeaderInfo : {
@@ -202,6 +228,7 @@ annotate EmailService.Emails with @(
 ```
 
 #### List Report Configuration
+
 ```cds
 annotate EmailService.Emails with @(UI : {
   SelectionFields : [ address ],
@@ -213,12 +240,13 @@ annotate EmailService.Emails with @(UI : {
 });
 ```
 
-| Annotation | Purpose |
-|------------|---------|
+| Annotation        | Purpose                        |
+| ----------------- | ------------------------------ |
 | `SelectionFields` | Fields shown in the filter bar |
-| `LineItem` | Columns displayed in the table |
+| `LineItem`        | Columns displayed in the table |
 
 #### CRUD Capabilities
+
 ```cds
 annotate EmailService.Emails with @(
   Capabilities.InsertRestrictions.Insertable : true,
@@ -234,36 +262,34 @@ annotate EmailService.Emails with @(
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <script
-        id="sap-ui-bootstrap"
-        src="https://sapui5.hana.ondemand.com/1.136/resources/sap-ui-core.js"
-        data-sap-ui-theme="sap_horizon"
-        data-sap-ui-resourceroots='{"localemailapp2.browse": "./"}'
-        data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
-        data-sap-ui-compatVersion="edge"
-        data-sap-ui-async="true"
-    ></script>
-</head>
-<body class="sapUiBody sapUiSizeCompact" id="content">
+      id="sap-ui-bootstrap"
+      src="https://sapui5.hana.ondemand.com/1.136/resources/sap-ui-core.js"
+      data-sap-ui-theme="sap_horizon"
+      data-sap-ui-resourceroots='{"zbmsds9200.browse": "./"}'
+      data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+      data-sap-ui-compatVersion="edge"
+      data-sap-ui-async="true"></script>
+  </head>
+  <body class="sapUiBody sapUiSizeCompact" id="content">
     <div
-        data-sap-ui-component
-        data-name="localemailapp2.browse"
-        data-id="container"
-        data-settings='{"id":"container"}'
-    ></div>
-</body>
+      data-sap-ui-component
+      data-name="zbmsds9200.browse"
+      data-id="container"
+      data-settings='{"id":"container"}'></div>
+  </body>
 </html>
 ```
 
 ### Key Settings
 
-| Setting | Value | Description |
-|---------|-------|-------------|
-| `data-sap-ui-theme` | `sap_horizon` | SAP's latest Fiori theme |
-| `data-sap-ui-async` | `true` | Asynchronous module loading |
-| UI5 Version | `1.136.0` | SAPUI5 version from CDN |
+| Setting             | Value         | Description                 |
+| ------------------- | ------------- | --------------------------- |
+| `data-sap-ui-theme` | `sap_horizon` | SAP's latest Fiori theme    |
+| `data-sap-ui-async` | `true`        | Asynchronous module loading |
+| UI5 Version         | `1.136.0`     | SAPUI5 version from CDN     |
 
 ## Internationalization
 
@@ -282,10 +308,10 @@ These strings are referenced in the manifest as `{{appTitle}}`, `{{appSubTitle}}
 ### `{{app/browse/webapp/Component.js}}`
 
 ```javascript
-sap.ui.define(["sap/fe/core/AppComponent"], 
-  ac => ac.extend("localemailapp2.browse.Component", {
-    metadata:{ manifest:'json' }
-  })
+sap.ui.define(["sap/fe/core/AppComponent"], (ac) =>
+  ac.extend("zbmsds9200.browse.Component", {
+    metadata: { manifest: "json" },
+  }),
 );
 ```
 
@@ -296,5 +322,3 @@ This is a standard Fiori elements application component that loads the manifest.
 - Service: `{{srv/cat-service.cds}}` - OData service consumed by the UI
 - Annotations: `{{app/browse/fiori-service.cds}}` - UI annotations
 - Manifest: `{{app/browse/webapp/manifest.json}}` - Main app configuration
-
-

@@ -7,13 +7,13 @@ npm install --save-dev @sap/hdi-deploy@latest
 FOR LOCAL MODE WITH HANA CLOUD ---
 
 ****Creating HDI container service:****
-cf create-service hana hdi-shared localemail-hdi
+cf create-service hana hdi-shared zbmsds9200-hdi
 
 ****Creating service key:****
-cf create-service-key localemail-hdi localemail-hdi-key
+cf create-service-key zbmsds9200-hdi zbmsds9200-hdi-key
 
-****Getting service key:**** 
-cf service-key localemail-hdi localemail-hdi-key
+****Getting service key:****
+cf service-key zbmsds9200-hdi zbmsds9200-hdi-key
 
 ****deploying the schema to hana****
 npx cds deploy --to hana
@@ -24,7 +24,7 @@ npx cds deploy --to sqlite:db.sqlite
 FOR DEPLOYING TO CLOUD FOUNDRY ----
 **build and deploy app**
 mbt build
-cf deploy mta_archives/localemailapp2_1.0.0.mtar
+cf deploy mta_archives/zbmsds9200_1.0.0.mtar
 ```
 
 ### Adding emails app to build work zone

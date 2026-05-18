@@ -32,21 +32,21 @@ The `Emails` entity represents an email address stored in the system.
 
 #### Aspects Used
 
-| Aspect | Purpose | Fields Added |
-|--------|---------|--------------|
-| `cuid` | Common UUID | `ID : UUID` - Primary key |
+| Aspect    | Purpose        | Fields Added                                         |
+| --------- | -------------- | ---------------------------------------------------- |
+| `cuid`    | Common UUID    | `ID : UUID` - Primary key                            |
 | `managed` | Audit tracking | `createdAt`, `createdBy`, `modifiedAt`, `modifiedBy` |
 
 #### Fields
 
-| Field | Type | Properties | Description |
-|-------|------|------------|-------------|
-| `ID` | UUID | Primary Key (from `cuid`) | Unique identifier |
-| `address` | String(255) | `@mandatory` | The email address (required) |
-| `createdAt` | Timestamp | (from `managed`) | When record was created |
-| `createdBy` | String | (from `managed`) | User who created the record |
-| `modifiedAt` | Timestamp | (from `managed`) | When record was last modified |
-| `modifiedBy` | String | (from `managed`) | User who last modified the record |
+| Field        | Type        | Properties                | Description                       |
+| ------------ | ----------- | ------------------------- | --------------------------------- |
+| `ID`         | UUID        | Primary Key (from `cuid`) | Unique identifier                 |
+| `address`    | String(255) | `@mandatory`              | The email address (required)      |
+| `createdAt`  | Timestamp   | (from `managed`)          | When record was created           |
+| `createdBy`  | String      | (from `managed`)          | User who created the record       |
+| `modifiedAt` | Timestamp   | (from `managed`)          | When record was last modified     |
+| `modifiedBy` | String      | (from `managed`)          | User who last modified the record |
 
 ## Managed Aspect Details
 
@@ -66,7 +66,7 @@ aspect managed {
 1. **On Insert (Create)**:
    - `createdAt` = current timestamp
    - `createdBy` = current user ID
-   - `modifiedAt` = current timestamp  
+   - `modifiedAt` = current timestamp
    - `modifiedBy` = current user ID
 
 2. **On Update**:
@@ -87,7 +87,7 @@ For production deployment to SAP BTP with HANA Cloud:
 ```yaml
 # From {{mta.yaml}}
 resources:
-  - name: localemailapp2-db
+  - name: zbmsds9200-db
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
@@ -103,5 +103,3 @@ For local development, SQLite is used (see `db.sqlite` in root).
 - Service Layer: `{{srv/cat-service.cds}}` - Exposes Emails via OData
 - Service Handlers: `{{srv/cat-service.js}}` - Implements user filtering using `createdBy`
 - Fiori Annotations: `{{app/browse/fiori-service.cds}}` - UI annotations for the Emails entity
-
-
